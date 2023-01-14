@@ -2,8 +2,10 @@
   margin-bottom: 3em;
   display: block;
 }
+
 .cart {
   position: relative;
+
   .counter {
     width: 20px;
     height: 20px;
@@ -18,19 +20,23 @@
     right: -10px;
   }
 }
+
 .show-mobile {
   display: block;
   box-shadow: 0px 2px 5px rgb(black, .2);
-  > div {
+
+  >div {
     padding: 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     button {
       border: 0;
       background: transparent;
     }
   }
+
   .side-menu {
     position: fixed;
     top: 0;
@@ -43,39 +49,54 @@
     justify-content: flex-start;
     transform: translateX(-100%);
     transition: all ease-out .5s;
+
     &.active {
       transform: translateX(0);
     }
   }
 }
+
 .hide-mobile {
   display: none;
   box-shadow: 0px 2px 5px rgb(black, .2);
-  > div {
+
+  >div {
     padding: 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
   .logo {
     margin-right: 1em;
   }
+
   nav {
     display: flex;
     align-items: center;
+
     ul {
       display: flex;
       list-style: none;
+
       a {
         margin: 0 .2em;
         color: inherit;
         text-decoration: none;
+
+        &.active {
+          border: 1px solid #ACD9B2;
+          color: #ACD9B2;
+          border-radius: 5px;
+        }
       }
     }
   }
+
   .info {
     display: flex;
     align-items: center;
+
     .account {
       margin-right: .5em;
     }
@@ -88,6 +109,7 @@
   .show-mobile {
     display: none;
   }
+
   .hide-mobile {
     display: block;
   }
@@ -98,6 +120,7 @@
   .show-mobile {
     display: none;
   }
+
   .hide-mobile {
     display: block;
   }
