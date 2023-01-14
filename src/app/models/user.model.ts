@@ -5,4 +5,4 @@ export interface User {
   name: string;
 }
 
-export interface CreateUserDto extends Omit<User, 'id'> {}
+export interface CreateUserDTO extends Omit<User, 'id'> {}

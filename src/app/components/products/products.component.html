@@ -1,25 +1,26 @@
-<div>
-  <button type="button" (click)="createProduct()">Create</button>
-</div>
-
 <div class="products--grid">
-  <app-product class="d-flex flex-column justify-content-center align-items-center" [product]="product"
-    *ngFor="let product of products" (addedProduct)="onAddToShoppingCart($event)"
-    (showProductDetails)="onShowDetails('123123')"></app-product>
-  <button (click)="loadMore()">Cargar mas elementos</button>
-  <p> {{statusDetail}}</p>
+  <app-product
+    [product]="product"
+    *ngFor="let product of products"
+    (addedProduct)="onAddToShoppingCart($event)"
+    (showProduct)="onShowDetail($event)"
+  ></app-product>
+  <button (click)="onLoadMore()">Load more</button>
 </div>
-<div class="product-detail" [class.active]="showProductDetails && productChosen">
+<div class="product-detail" [class.active]="showProductDetail">
+  {{ statusDetail }}
   <div *ngIf="productChosen">
-    <button type="button" class="btn btn-danger m-2 align-self-end" (click)="toggleProductDetails()">
-      Cerrar
-    </button>
-    <h1 class="text-center p-2"> {{productChosen.title}}</h1>
-    <p> {{productChosen.description}}</p>
-    <swiper [slidesPerView]="1">
-      <ng-template swiperSlide *ngFor="let img of productChosen.images"> <img [src]="img" alt=""></ng-template>
+    <button (click)="toggleProductDetail()">Close</button>
+    <h1>{{ productChosen.title }}</h1>
+    <swiper
+      [slidesPerView]="1"
+    >
+      <ng-template swiperSlide *ngFor="let img of productChosen.images">
+        <img [src]="img" alt="">
+      </ng-template>
     </swiper>
-    <button (click)="updateProduct()">Editar</button>
-    <button (click)="deleteProduct()">Eliminar</button>
+    <p>{{ productChosen.description }}</p>
+    <button (click)="updateProduct()">editar</button>
+    <button (click)="deleteProduct()">delete</button>
   </div>
 </div>

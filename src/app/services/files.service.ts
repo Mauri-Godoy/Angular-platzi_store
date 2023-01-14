@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
-import { map, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { File } from '../models/file.model';
+import { tap, map } from 'rxjs/operators';
+
+import { environment } from './../../environments/environment';
+import { FileRta } from './../models/files.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,23 +18,19 @@ export class FilesService {
   ) { }
 
   getFile(name: string, url: string, type: string) {
-    return this.http.get(url, { responseType: 'blob' }).pipe(
+    return this.http.get(url, {responseType: 'blob'})
+    .pipe(
       tap(content => {
-        console.log(content)
-        const blob = new Blob([content], { type });
+        const blob = new Blob([content], {type});
         saveAs(blob, name);
       }),
       map(() => true)
-    )
+    );
   }
 
   uploadFile(file: Blob) {
     const dto = new FormData();
-    dto.append('file', file)
-    return this.http.post<File>(`${this.apiUrl}/upload`, dto, {
-      //  headers: {
-      //    "Content-type": "multipart/form-data"
-      //  }
-    })
+    dto.append('file', file);
+    return this.http.post<FileRta>(`${this.apiUrl}/upload`, dto)
   }
 }

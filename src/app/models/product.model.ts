@@ -1,7 +1,4 @@
-export interface Category {
-  id?: string;
-  name?: string;
-}
+import { Category } from './category.model';
 
 export interface Product {
   id: string;
@@ -13,9 +10,10 @@ export interface Product {
   taxes?: number;
 }
 
-export interface CreateProductDto extends Omit<Product, 'id' | 'category'> {
+
+export interface CreateProductDTO extends Omit<Product, 'id' | 'category'> {
   categoryId: number;
 }
 
-export interface UpdateProductDto extends Partial<CreateProductDto> {
-}
+export interface UpdateProductDTO extends Partial<CreateProductDTO> { }
+

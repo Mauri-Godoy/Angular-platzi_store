@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { CreateUserDto } from '../models/user.model';
-import { User } from '../models/user.model';
+
+import { environment } from './../../environments/environment';
+import { User, CreateUserDTO } from './../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UsersService {
     private http: HttpClient
   ) { }
 
-  create(dto: CreateUserDto) {
+  create(dto: CreateUserDTO) {
     return this.http.post<User>(this.apiUrl, dto);
   }
 
