@@ -7,13 +7,14 @@ import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-category',
-  template: `<app-products [products]="products"></app-products>`,
+  template: `<app-products [productId]="productId"  [products]="products"></app-products>`,
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
 
   categoryId: string | null = null;
   products: Product[] = [];
+  productId: string | null = null;
 
   limit = 10;
   offset = 0;
@@ -35,6 +36,10 @@ export class CategoryComponent implements OnInit {
       .subscribe(data => {
         this.products = data;
       })
+
+    this.route.queryParamMap.subscribe(params => {
+      this.productId = params.get('product');
+    })
   }
 
 }
