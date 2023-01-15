@@ -24,6 +24,7 @@ import { ProductComponent } from './website/components/product/product.component
 import { ImgComponent } from './website/components/img/img.component';
 import { ProductsComponent } from './website/components/products/products.component';
 import { NavComponent } from './website/components/nav/nav.component';
+import { LayoutComponent } from './website/components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NavComponent } from './website/components/nav/nav.component';
     RegisterComponent,
     RecoveryComponent,
     ProfileComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
