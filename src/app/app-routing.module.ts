@@ -24,7 +24,7 @@ const routes: Routes = [
 ];
 
 //Hay otra estrategia, pero no pudo implementar correctamente la librería: npm i ngx-quicklink --save
-//Analiza los links que aparezcan y recarga los módulos
+//quicklink: Analiza los links que aparezcan y recarga los módulos
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     preloadingStrategy: CustomPreloadService
