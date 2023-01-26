@@ -20,10 +20,10 @@ export class AuthService {
   ) { }
 
   login(email: string, password: string) {
-    return this.http.post<Auth>(`${this.apiUrl}/login`, {email, password})
-    .pipe(
-      tap(response => this.tokenService.saveToken(response.access_token))
-    );
+    return this.http.post<Auth>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        tap(response => this.tokenService.saveToken(response.access_token))
+      );
   }
 
   getProfile() {
@@ -32,8 +32,12 @@ export class AuthService {
 
   loginAndGet(email: string, password: string) {
     return this.login(email, password)
-    .pipe(
-      switchMap(() => this.getProfile()),
-    )
+      .pipe(
+        switchMap(() => this.getProfile()),
+      )
+  }
+
+  logout() {
+    this.tokenService.removeToken();
   }
 }

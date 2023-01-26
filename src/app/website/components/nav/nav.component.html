@@ -19,7 +19,7 @@
     <ul>
       <li><a routerLinkActive="active" routerLink="home">All</a></li>
       <li *ngFor="let item of categories">
-        <a outerLinkActive="active" [routerLink]="['/category', item.id]">{{item.name}}</a>
+        <a routerLinkActive="active" [routerLink]="['/category', item.id]">{{item.name}}</a>
       </li>
     </ul>
   </div>
@@ -44,6 +44,7 @@
           <a routerLink="/profile">
             {{ profile?.email }}
           </a>
+          <button (click)="logout()">Logout</button>
         </ng-template>
       </div>
       <div class="cart">
