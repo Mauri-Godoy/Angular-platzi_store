@@ -17,7 +17,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authService.getProfile().subscribe(profile =>
+    //En vez de realizar una petición, obtenemos el estado global del usuario
+    this.authService.user$.subscribe(profile =>
       this.profile = profile);
   }
 
