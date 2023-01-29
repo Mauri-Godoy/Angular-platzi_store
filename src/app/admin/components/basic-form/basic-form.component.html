@@ -1,0 +1,10 @@
+<div>
+  {{nameField.value}}
+  <input type="text" [formControl]="nameField" />
+</div>
+<button (click)="getNameValue()">Get name value</button>
+<!-- <code>
+  <pre>
+    {{nameField | json}}
+  </pre>
+</code> -->
