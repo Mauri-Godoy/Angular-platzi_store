@@ -1,36 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { HighlightDirective } from './directives/highlight.directive';
-import { ImgComponent } from './components/img/img.component';
-import { ProductsComponent } from './components/products/products.component';
-import { WebsiteRoutingModule } from '../website/website-routing.module';
-import { SwiperModule } from 'swiper/angular';
-import { ProductComponent } from './components/product/product.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { ExponentialPipe } from './pipes/exponential/exponential.pipe';
+import { HighlightDirective } from './directives/highlight/highlight.directive';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CartComponent } from './components/cart/cart.component';
+
+import { MaterialModule } from './../material/material.module';
 
 @NgModule({
   declarations: [
-    ReversePipe,
-    TimeAgoPipe,
-    ProductsComponent,
-    ImgComponent,
-    ProductComponent,
+    ExponentialPipe,
     HighlightDirective,
+    HeaderComponent,
+    FooterComponent,
+    CartComponent
+  ],
+  exports: [
+    ExponentialPipe,
+    HighlightDirective,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
-    WebsiteRoutingModule,
-    SwiperModule
-  ],
-  exports: [
-    ReversePipe,
-    TimeAgoPipe,
-    ProductsComponent,
-    ImgComponent,
-    ProductComponent,
-    HighlightDirective,
+    RouterModule,
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

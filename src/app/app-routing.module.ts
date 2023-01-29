@@ -1,35 +1,60 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { CmsModule } from './cms/cms.module';
-import { CustomPreloadService } from './services/custom-preload.service';
-import { AdminGuard } from './guards/admin.guard';
+import { LayoutComponent } from './layout/layout.component';
+
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./website/website.module').then(m => m.WebsiteModule),
-    data: {
-      preload: true
-    }
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'products',
+        loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
+      },
+      {
+        path: 'contact',
+        loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
+      },
+      {
+        path: 'order',
+        loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
+      },
+      {
+        path: 'demo',
+        loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule)
+      },
+    ]
   },
   {
-    path: 'cms',
-    loadChildren: () => import('./cms/cms.module').then(m => m.CmsModule),
-    canActivate: [AdminGuard]
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '**',
-    component: NotFoundComponent
-  }
+    loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
+  },
 ];
 
-//Hay otra estrategia, pero no pudo implementar correctamente la librería: npm i ngx-quicklink --save
-//quicklink: Analiza los links que aparezcan y recarga los módulos
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: CustomPreloadService
+    preloadingStrategy: PreloadAllModules
   })],
   exports: [RouterModule]
 })

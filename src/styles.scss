@@ -1,28 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url(./styles/reset.scss);
-@import '~swiper/swiper-bundle';
+// body {
+//   margin: 0px;
+//   padding: 0px;
+// }
 
-* {
-  font-family: 'Quicksand', sans-serif;
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 50px 20px;
 }
 
-.products--grid {
-  app-img {
-    img {
-      border-radius: 10px;
-      max-height: 200px;
-    }
+.container {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .container {
+    max-width: 1110px;
+    padding-right: 16px;
+    padding-left: 16px;
   }
 }
-.product-detail {
-  padding: .5em;
-  .swiper-slide {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    img {
-      width: 100%;
-    }
-  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+img {
+  max-width: 100%;
 }
