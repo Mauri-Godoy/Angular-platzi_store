@@ -4,13 +4,22 @@
     <p>
       Name: {{nameField.value}}
     </p>
+    <p>
+      Válido: {{nameField.valid}}
+    </p>
     <input type="text" [formControl]="nameField" />
-    <button (click)="getNameValue()">Get name value</button>
+    <button [disabled]="nameField.invalid" (click)="getNameValue()">Get name value</button>
     <!-- <code>
   <pre>
     {{nameField | json}}
   </pre>
 </code> -->
+    <p *ngIf="nameField.touched && nameField.hasError('required')">
+      <strong>Este campo es requerido</strong>
+    </p>
+    <p *ngIf="nameField.dirty && nameField.hasError('maxlength')">
+      <strong>Este campo debe tener máximo 10 caracteres</strong>
+    </p>
   </div>
 
   <div>
