@@ -1,10 +1,46 @@
-<div>
-  {{nameField.value}}
-  <input type="text" [formControl]="nameField" />
-</div>
-<button (click)="getNameValue()">Get name value</button>
-<!-- <code>
+<div style="margin-left: 1rem;">
+
+  <div>
+    <p>
+      Name: {{nameField.value}}
+    </p>
+    <input type="text" [formControl]="nameField" />
+    <button (click)="getNameValue()">Get name value</button>
+    <!-- <code>
   <pre>
     {{nameField | json}}
   </pre>
 </code> -->
+  </div>
+  <div>
+    <p>
+      Email: {{emailField.value}}
+    </p>
+    <input type="email" [formControl]="emailField" />
+  </div>
+  <div>
+    <p>
+      Phone: {{phoneField.value}}
+    </p>
+    <input type="tel" [formControl]="phoneField" />
+  </div>
+  <div>
+    <p>
+      Color: {{colorField.value}}
+    </p>
+    <input type="color" [formControl]="colorField" />
+  </div>
+  <div>
+    <p>
+      Date: {{dateField.value}}
+    </p>
+    <input type="date" [formControl]="dateField" />
+  </div>
+  <div>
+    <p>
+      Number: {{numberField.value}}
+    </p>
+    <input type="number" [formControl]="numberField" />
+  </div>
+
+</div>
