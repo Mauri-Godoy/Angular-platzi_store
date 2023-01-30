@@ -1,4 +1,4 @@
-<div style="margin-left: 1rem;">
+<div style="margin: 1rem;">
 
   <div>
     <p>
@@ -12,30 +12,35 @@
   </pre>
 </code> -->
   </div>
+
   <div>
     <p>
       Email: {{emailField.value}}
     </p>
     <input type="email" [formControl]="emailField" />
   </div>
+
   <div>
     <p>
       Phone: {{phoneField.value}}
     </p>
     <input type="tel" [formControl]="phoneField" />
   </div>
+
   <div>
     <p>
       Color: {{colorField.value}}
     </p>
     <input type="color" [formControl]="colorField" />
   </div>
+
   <div>
     <p>
       Date: {{dateField.value}}
     </p>
     <input type="date" [formControl]="dateField" />
   </div>
+
   <div>
     <p>
       Number: {{numberField.value}}
@@ -64,6 +69,43 @@
       <option value="Tag-2">Tag 2</option>
       <option value="Tag-3">Tag 3</option>
     </select>
+  </div>
+
+  <div>
+    <span> agreeField: {{agreeField.value}} </span>
+    <input type="checkbox" [formControl]="agreeField">
+  </div>
+
+  <div>
+    <p> Gender: {{genderField.value}} </p>
+    <label>
+      <input name="gender" type="radio" [formControl]="genderField" value="Male">
+      Male
+    </label>
+    <label>
+      <input name="gender" type="radio" [formControl]="genderField" value="Female">
+      Female
+    </label>
+    <label>
+      <input name="gender" type="radio" [formControl]="genderField" value="Other">
+      Other
+    </label>
+  </div>
+
+  <div>
+    <p> Zone: {{zoneField.value}} </p>
+    <label>
+      <input name="zone" type="radio" [formControl]="zoneField" value="zona1">
+      zona1
+    </label>
+    <label>
+      <input name="zone" type="radio" [formControl]="zoneField" value="zona2">
+      zona2
+    </label>
+    <label>
+      <input name="zone" type="radio" [formControl]="zoneField" value="zona3">
+      zona3
+    </label>
   </div>
 
 </div>
