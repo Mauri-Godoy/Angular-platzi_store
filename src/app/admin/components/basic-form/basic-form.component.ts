@@ -14,6 +14,8 @@ export class BasicFormComponent implements OnInit {
   colorField = new FormControl('#000')
   dateField = new FormControl('2023-01-10')
   numberField = new FormControl('')
+  categoryField = new FormControl('')
+  tagField = new FormControl('')
 
   constructor() { }
 
