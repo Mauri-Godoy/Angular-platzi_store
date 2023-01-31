@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -8,25 +8,33 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
 
-  form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    color: new FormControl('#000'),
-    date: new FormControl('2023-01-10'),
-    number: new FormControl(''),
-    category: new FormControl(''),
-    tag: new FormControl(''),
-    agree: new FormControl(false),
-    gender: new FormControl(''),
-    zone: new FormControl(''),
-  })
+  form: FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) {
+    this.buildForm()
+  }
 
   ngOnInit(): void {
     //Obtener estado de manera reactiva
-    this.nameField.valueChanges.subscribe(value => console.log(value))
+    this.nameField.valueChanges.subscribe(value => console.log("Cambios de nombre: " + value))
+    this.form.valueChanges.subscribe(value => console.log("Cambios de formulario: " + JSON.stringify(value)))
+
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(10)]],
+      email: [''],
+      phone: ['', Validators.required],
+      color: ['#000'],
+      date: ['2023-01-10'],
+      number: [''],
+      category: [''],
+      tag: [''],
+      agree: [false],
+      gender: [''],
+      zone: [''],
+    })
   }
 
   save(event) {
