@@ -1,4 +1,4 @@
-<div style="margin: 1rem;">
+<form style="margin: 1rem;" [formGroup]="form" (ngSubmit)="save($event)">
 
   <div>
     <p>
@@ -8,8 +8,8 @@
       Válido: {{nameField.valid}}
     </p>
     <input [class.is-valid]="isNameFieldValid" [class.is-invalid]="isNameFieldInvalid" type="text"
-      [formControl]="nameField" />
-    <button [disabled]="nameField.invalid" (click)="getNameValue()">Get name value</button>
+      formControlName="name" />
+    <button [disabled]="nameField.invalid" type="button">Get name value</button>
     <!-- <code>
   <pre>
     {{nameField | json}}
@@ -29,42 +29,42 @@
     <p>
       Email: {{emailField.value}}
     </p>
-    <input type="email" [formControl]="emailField" />
+    <input type="email" formControlName="email" />
   </div>
 
   <div>
     <p>
       Phone: {{phoneField.value}}
     </p>
-    <input type="tel" [formControl]="phoneField" />
+    <input type="tel" formControlName="phone" />
   </div>
 
   <div>
     <p>
       Color: {{colorField.value}}
     </p>
-    <input type="color" [formControl]="colorField" />
+    <input type="color" formControlName="color" />
   </div>
 
   <div>
     <p>
       Date: {{dateField.value}}
     </p>
-    <input type="date" [formControl]="dateField" />
+    <input type="date" formControlName="date" />
   </div>
 
   <div>
     <p>
       Number: {{numberField.value}}
     </p>
-    <input type="number" [formControl]="numberField" />
+    <input type="number" formControlName="number" />
   </div>
 
   <div>
     <p>
       Category: {{categoryField.value}}
     </p>
-    <select [formControl]="categoryField">
+    <select formControlName="category">
       <option value="" disabled>Seleccione una opción</option>
       <option value="category-1">Category 1</option>
       <option value="category-2">Category 2</option>
@@ -76,7 +76,7 @@
     <p>
       Tag: {{tagField.value}}
     </p>
-    <select [formControl]="tagField" multiple>
+    <select formControlName="tag" multiple>
       <option value="Tag-1">Tag 1</option>
       <option value="Tag-2">Tag 2</option>
       <option value="Tag-3">Tag 3</option>
@@ -85,21 +85,21 @@
 
   <div>
     <span> agreeField: {{agreeField.value}} </span>
-    <input type="checkbox" [formControl]="agreeField">
+    <input type="checkbox" formControlName="agree">
   </div>
 
   <div>
     <p> Gender: {{genderField.value}} </p>
     <label>
-      <input name="gender" type="radio" [formControl]="genderField" value="Male">
+      <input name="gender" type="radio" formControlName="gender" value="Male">
       Male
     </label>
     <label>
-      <input name="gender" type="radio" [formControl]="genderField" value="Female">
+      <input name="gender" type="radio" formControlName="gender" value="Female">
       Female
     </label>
     <label>
-      <input name="gender" type="radio" [formControl]="genderField" value="Other">
+      <input name="gender" type="radio" formControlName="gender" value="Other">
       Other
     </label>
   </div>
@@ -107,17 +107,21 @@
   <div>
     <p> Zone: {{zoneField.value}} </p>
     <label>
-      <input name="zone" type="radio" [formControl]="zoneField" value="zona1">
+      <input name="zone" type="radio" formControlName="zone" value="zona1">
       zona1
     </label>
     <label>
-      <input name="zone" type="radio" [formControl]="zoneField" value="zona2">
+      <input name="zone" type="radio" formControlName="zone" value="zona2">
       zona2
     </label>
     <label>
-      <input name="zone" type="radio" [formControl]="zoneField" value="zona3">
+      <input name="zone" type="radio" formControlName="zone" value="zona3">
       zona3
     </label>
   </div>
 
-</div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+
+</form>
