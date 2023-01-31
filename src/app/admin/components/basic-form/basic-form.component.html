@@ -17,10 +17,13 @@
 </code> -->
     <div class="messages" [class.active]="isNameFieldInvalid">
       <p *ngIf="nameField.hasError('required')">
-        <strong>Este campo es requerido</strong>
+        Este campo es requerido
       </p>
       <p *ngIf="nameField.hasError('maxlength')">
-        <strong>Este campo debe tener máximo 10 caracteres</strong>
+        Este campo debe tener máximo 10 caracteres
+      </p>
+      <p *ngIf="nameField.hasError('pattern')">
+        No deber tener caracteres
       </p>
     </div>
   </div>
@@ -29,18 +32,22 @@
     <p>
       Email: {{emailField.value}}
     </p>
-    <input type="email" formControlName="email" />
+    <input type="email" formControlName="email" [class.is-invalid]="emailField.touched && emailField.invalid" />
+    <div class="messages" [class.active]="emailField.invalid && emailField.touched">
+      <p *ngIf=" emailField.hasError('required')">Este campo es requerido</p>
+      <p *ngIf="emailField.hasError('email')">No es un email válido</p>
+    </div>
   </div>
 
   <div>
     <p>
       Phone: {{phoneField.value}}
     </p>
-    <input type="tel" formControlName="phone" />
+    <input type="tel" formControlName="phone" [class.is-invalid]="phoneField.touched && phoneField.invalid" />
     <div class="messages" [class.active]="phoneField.invalid && phoneField.touched">
-      <p *ngIf="phoneField.hasError('required')">
-        <strong>Este campo es requerido</strong>
-      </p>
+      <p *ngIf="phoneField.hasError('required')">Este campo es requerido</p>
+      <p *ngIf="phoneField.hasError('min')">Debe ser mayor a 18</p>
+      <p *ngIf="phoneField.hasError('max')">Debe ser menor a 100</p>
     </div>
   </div>
 
@@ -62,7 +69,12 @@
     <p>
       Number: {{numberField.value}}
     </p>
-    <input type="number" formControlName="number" />
+    <input type="number" formControlName="number" [class.is-invalid]="numberField.touched && numberField.invalid" />
+    <div class="messages" [class.active]="numberField.invalid && numberField.touched">
+      <p *ngIf="numberField.hasError('required')">Este campo es requerido</p>
+      <p *ngIf="numberField.hasError('min')">Debe ser mayor a 18</p>
+      <p *ngIf="numberField.hasError('max')">Debe ser menor a 100</p>
+    </div>
   </div>
 
   <div>
@@ -90,7 +102,10 @@
 
   <div>
     <span> agreeField: {{agreeField.value}} </span>
-    <input type="checkbox" formControlName="agree">
+    <input type="checkbox" formControlName="agree" [class.is-invalid]="agreeField.touched && agreeField.invalid">
+    <div class="messages" [class.active]="agreeField.touched">
+      <p *ngIf="agreeField.hasError('requiredTrue')">Este campo es obligatorio</p>
+    </div>
   </div>
 
   <div>

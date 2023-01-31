@@ -16,22 +16,22 @@ export class BasicFormComponent implements OnInit {
 
   ngOnInit(): void {
     //Obtener estado de manera reactiva
-    this.nameField.valueChanges.subscribe(value => console.log("Cambios de nombre: " + value))
+    this.agreeField.valueChanges.subscribe(value => console.log("Cambios en agree: " + value))
     this.form.valueChanges.subscribe(value => console.log("Cambios de formulario: " + JSON.stringify(value)))
 
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10)]],
-      email: [''],
+      name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^([Aa-zA-ZáéíóúÁÉÍÓÚÑñ]{2,}\s?)$/)]],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       color: ['#000'],
       date: ['2023-01-10'],
-      number: [''],
+      number: [18, [Validators.required, Validators.min(18), Validators.max(100)]],
       category: [''],
       tag: [''],
-      agree: [false],
+      agree: [false, Validators.requiredTrue],
       gender: [''],
       zone: [''],
     })
@@ -39,7 +39,7 @@ export class BasicFormComponent implements OnInit {
 
   save(event) {
     if (this.form.invalid)
-      this.form.controls.name.markAsTouched();
+      this.form.markAllAsTouched();
     else
       console.log(this.form.value);
   }
