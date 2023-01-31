@@ -30,7 +30,10 @@ export class BasicFormComponent implements OnInit {
   }
 
   save(event) {
-    console.log(this.form.value)
+    if (this.form.invalid)
+      this.form.controls.name.markAsTouched();
+    else
+      console.log(this.form.value);
   }
 
   get nameField() {
