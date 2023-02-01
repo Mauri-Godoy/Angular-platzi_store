@@ -15,9 +15,20 @@ export class MyValidators {
     const value = control.value;
 
     if (containsNumber(value))
-      return null;
+      return null; // si no hay error se retorna null
 
+    // se retorna el nombre del error
     return { invalid_password: true }
+  }
+
+  //A diferencia de las otras validaciones, acá se está recibiendo como parámetro el formulario
+  static matchPasswords(control: AbstractControl) {
+    const password = control.get('password').value;
+    const confirmPassword = control.get('confirmPassword').value;
+
+    if (password === confirmPassword) return null;
+
+    return { match_password: true }
   }
 }
 

@@ -31,10 +31,16 @@
       </div>
       <div class="row">
         <div class="col-xs">
-          <mat-form-field>
+          <mat-form-field style="margin-bottom: 5px;">
             <mat-label>Confirm Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
+            <input placeholder="password" formControlName="confirmPassword" matInput type="password">
+            <mat-error *ngIf="confirmPasswordField.hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
           </mat-form-field>
+          <mat-error *ngIf="form.hasError('match_password') && confirmPasswordField.touched" style="font-size: small; ">
+            * Las contraseñas no coinciden
+          </mat-error>
         </div>
       </div>
     </mat-card-content>
