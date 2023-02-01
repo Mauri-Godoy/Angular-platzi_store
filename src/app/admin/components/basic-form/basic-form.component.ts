@@ -16,14 +16,17 @@ export class BasicFormComponent implements OnInit {
 
   ngOnInit(): void {
     //Obtener estado de manera reactiva
-    this.agreeField.valueChanges.subscribe(value => console.log("Cambios en agree: " + value))
+    // this.agreeField.valueChanges.subscribe(value => console.log("Cambios en agree: " + value))
     this.form.valueChanges.subscribe(value => console.log("Cambios de formulario: " + JSON.stringify(value)))
 
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^([Aa-zA-ZáéíóúÁÉÍÓÚÑñ]{2,}\s?)$/)]],
+      fullName: this.formBuilder.group({
+        name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^([Aa-zA-ZáéíóúÁÉÍÓÚÑñ]{2,}\s?)$/)]],
+        last: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^([Aa-zA-ZáéíóúÁÉÍÓÚÑñ]{2,}\s?)$/)]]
+      }),
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       color: ['#000'],
@@ -45,7 +48,11 @@ export class BasicFormComponent implements OnInit {
   }
 
   get nameField() {
-    return this.form.get('name');
+    return this.form.get('fullName.name');
+  }
+
+  get lastField() {
+    return this.form.get('fullName').get('last');
   }
 
   get emailField() {

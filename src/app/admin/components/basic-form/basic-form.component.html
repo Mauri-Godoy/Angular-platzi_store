@@ -1,30 +1,46 @@
 <form style="margin: 1rem;" [formGroup]="form" (ngSubmit)="save($event)">
 
-  <div>
-    <p>
-      Name: {{nameField.value}}
-    </p>
-    <p>
-      Válido: {{nameField.valid}}
-    </p>
-    <input [class.is-valid]="isNameFieldValid" [class.is-invalid]="isNameFieldInvalid" type="text"
-      formControlName="name" />
-    <button [disabled]="nameField.invalid" type="button">Get name value</button>
-    <!-- <code>
-  <pre>
-    {{nameField | json}}
-  </pre>
-</code> -->
-    <div class="messages" [class.active]="isNameFieldInvalid">
-      <p *ngIf="nameField.hasError('required')">
-        Este campo es requerido
+  <div formGroupName="fullName">
+    <div>
+      <p>
+        Name: {{nameField.value}}
       </p>
-      <p *ngIf="nameField.hasError('maxlength')">
-        Este campo debe tener máximo 10 caracteres
+      <input [class.is-valid]="isNameFieldValid" [class.is-invalid]="isNameFieldInvalid" type="text"
+        formControlName="name" />
+      <!-- <code>
+        <pre>
+          {{nameField | json}}
+        </pre>
+      </code> -->
+      <div class="messages" [class.active]="isNameFieldInvalid">
+        <p *ngIf="nameField.hasError('required')">
+          Este campo es requerido
+        </p>
+        <p *ngIf="nameField.hasError('maxlength')">
+          Este campo debe tener máximo 10 caracteres
+        </p>
+        <p *ngIf="nameField.hasError('pattern')">
+          No deber tener caracteres
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <p>
+        Last Name: {{lastField.value}}
       </p>
-      <p *ngIf="nameField.hasError('pattern')">
-        No deber tener caracteres
-      </p>
+      <input [class.is-invalid]="lastField.invalid && lastField.touched" type="text" formControlName="last" />
+      <div class="messages" [class.active]="lastField.invalid && lastField.touched">
+        <p *ngIf="lastField.hasError('required')">
+          Este campo es requerido
+        </p>
+        <p *ngIf="lastField.hasError('maxlength')">
+          Este campo debe tener máximo 10 caracteres
+        </p>
+        <p *ngIf="lastField.hasError('pattern')">
+          No deber tener caracteres
+        </p>
+      </div>
     </div>
   </div>
 
