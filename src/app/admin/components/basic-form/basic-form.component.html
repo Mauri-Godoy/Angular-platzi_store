@@ -1,29 +1,27 @@
 <form style="margin: 1rem;" [formGroup]="form" (ngSubmit)="save($event)">
 
   <div formGroupName="fullName">
-    <div>
-      <p>
-        Name: {{nameField.value}}
-      </p>
-      <input [class.is-valid]="isNameFieldValid" [class.is-invalid]="isNameFieldInvalid" type="text"
-        formControlName="name" />
-      <!-- <code>
-        <pre>
-          {{nameField | json}}
-        </pre>
-      </code> -->
-      <div class="messages" [class.active]="isNameFieldInvalid">
-        <p *ngIf="nameField.hasError('required')">
+
+    <mat-form-field appearance="fill">
+      <mat-label> Name
+      </mat-label>
+      <input matInput type="text" formControlName="name" placeholder="Ex. pat@example.com" />
+      <button *ngIf="nameField.value" matSuffix mat-icon-button aria-label="Clear" type="button"
+        (click)="setNameField = ''">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-error>
+        <span *ngIf="nameField.hasError('required')">
           Este campo es requerido
-        </p>
-        <p *ngIf="nameField.hasError('maxlength')">
+        </span>
+        <span *ngIf="nameField.hasError('maxlength')">
           Este campo debe tener máximo 10 caracteres
-        </p>
-        <p *ngIf="nameField.hasError('pattern')">
+        </span>
+        <span *ngIf="nameField.hasError('pattern')">
           No deber tener caracteres
-        </p>
-      </div>
-    </div>
+        </span>
+      </mat-error>
+    </mat-form-field>
 
     <div>
       <p>
@@ -75,10 +73,16 @@
   </div>
 
   <div>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
     <p>
       Date: {{dateField.value}}
     </p>
-    <input type="date" formControlName="date" />
   </div>
 
   <div>

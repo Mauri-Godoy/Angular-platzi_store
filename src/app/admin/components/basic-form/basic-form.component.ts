@@ -1,3 +1,4 @@
+import { ngModuleJitUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -49,6 +50,10 @@ export class BasicFormComponent implements OnInit {
 
   get nameField() {
     return this.form.get('fullName.name');
+  }
+
+  set setNameField(value) {
+    this.nameField.setValue(value);
   }
 
   get lastField() {
