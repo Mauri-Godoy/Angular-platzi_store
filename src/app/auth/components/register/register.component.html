@@ -17,14 +17,9 @@
           <mat-form-field>
             <mat-label>Password</mat-label>
             <input placeholder="password" formControlName="password" matInput type="password">
-            <mat-error *ngIf="passwordField.hasError('required')">
-              Este campo es obligatorio.
-            </mat-error>
-            <mat-error *ngIf="passwordField.hasError('invalid_password')">
-              Debe tener al menos un carácter alfanumérico.
-            </mat-error>
-            <mat-error *ngIf="passwordField.hasError('minlength')">
-              Debe tener al menos 6 caracteres.
+            <mat-error *ngIf="passwordField.hasError('required') || passwordField.hasError('invalid_password')
+              || passwordField.hasError('minlength')">
+              Debe tener al menos 6 caracteres y un número.
             </mat-error>
           </mat-form-field>
         </div>
