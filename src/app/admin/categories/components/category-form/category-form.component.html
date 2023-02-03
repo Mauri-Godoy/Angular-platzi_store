@@ -18,10 +18,10 @@
 
       <div class="row">
         <div class="col-xs">
-          <mat-form-field appearance="fill">
-            <mat-label>Image</mat-label>
-            <input matInput type="text" formControlName="image">
-          </mat-form-field>
+          <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+          <input hidden (change)="uploadFile($event)" #fileInput type="file">
+          <span class="file-name">{{imageField.value}}</span>
+          <mat-progress-bar *ngIf="progressBarValue " mode="determinate" [value]="progressBarValue"></mat-progress-bar>
         </div>
       </div>
     </mat-card-content>

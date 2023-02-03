@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from '../../../../core/services/categories.service'
 import { Router } from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-category-form',
@@ -11,12 +13,13 @@ import { Router } from '@angular/router';
 export class CategoryFormComponent implements OnInit {
 
   form: FormGroup;
+  progressBarValue: number | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
-    private router: Router
-  ) {
+    private router: Router,
+    private storage: AngularFireStorage) {
     this.buildForm();
 
   }
@@ -50,5 +53,26 @@ export class CategoryFormComponent implements OnInit {
       console.log('Categoría creada: ', response)
       this.router.navigate(['./admin/categories'])
     })
+  }
+
+  uploadFile(event) {
+    const image = event.target.files[0];
+    const name = 'category.png';
+    const ref = this.storage.ref(name);
+    const task = this.storage.upload(name, image);
+    this.imageField.setValue(null)
+    this.progressBarValue = 1;
+
+    task.percentageChanges().subscribe(value => this.progressBarValue = value);
+
+    task.snapshotChanges()
+      .pipe(finalize(() => {
+        const urlImage$ = ref.getDownloadURL();
+        urlImage$.subscribe(url => {
+          console.log(url)
+          this.progressBarValue = null;
+          this.imageField.setValue(url)
+        })
+      })).subscribe()
   }
 }

@@ -21,6 +21,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -44,8 +46,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
     MatFormFieldModule,
     MatStepperModule,
     MatNativeDateModule,
-    MatDatepickerModule
-  ],
+    MatDatepickerModule,
+    MatProgressBarModule],
   exports: [
     MatButtonModule,
     MatToolbarModule,
@@ -66,7 +68,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
     MatFormFieldModule,
     MatStepperModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule { }
