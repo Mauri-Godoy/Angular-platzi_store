@@ -21,4 +21,9 @@ export class CategoriesService {
   updateCategory(id: string, data: Partial<Category>) {
     return this.http.put<Category>(`${environment.url_api}/categories/${id}`, data)
   }
+
+  //Este endpoint actualmente no existe
+  checkCategory(name: string) {
+    return this.http.post(`${environment.url_api}/categories/availability`, { name })
+  }
 }
