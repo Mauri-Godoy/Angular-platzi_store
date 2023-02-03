@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService } from '../../../../core/services/categories.service'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { MyValidators } from 'src/app/utils/validators';
@@ -15,22 +15,31 @@ export class CategoryFormComponent implements OnInit {
 
   form: FormGroup;
   progressBarValue: number | null = null;
+  categoryId: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
     private router: Router,
-    private storage: AngularFireStorage) {
+    private storage: AngularFireStorage,
+    private route: ActivatedRoute) {
     this.buildForm();
 
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.categoryId = params.id;
+      if (this.categoryId)
+        this.getCategory();
+    })
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(4)], MyValidators.validateCategory(this.categoriesService)],
+      name: ['', [Validators.required, Validators.minLength(4)],
+      //Saco la validación asíncrona porque el endpoint devuelve un 404
+      /* MyValidators.validateCategory(this.categoriesService)*/],
       image: ['', Validators.required]
     })
   }
@@ -53,6 +62,13 @@ export class CategoryFormComponent implements OnInit {
     this.categoriesService.createCategory(data).subscribe(response => {
       console.log('Categoría creada: ', response)
       this.router.navigate(['./admin/categories'])
+    })
+  }
+
+  private getCategory() {
+    this.categoriesService.getCategory(this.categoryId).subscribe(response => {
+      console.log(response)
+      this.form.patchValue(response)
     })
   }
 
