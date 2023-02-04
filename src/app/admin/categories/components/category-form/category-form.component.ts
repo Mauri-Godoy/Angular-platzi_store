@@ -1,38 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CategoriesService } from '../../../../core/services/categories.service'
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
-import { MyValidators } from 'src/app/utils/validators';
+import { Category } from 'src/app/core/models/category.model';
+import { CategoriesService } from 'src/app/core/services/categories.service';
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss']
 })
-export class CategoryFormComponent implements OnInit {
+export class CategoryFormComponent {
+  //Smart vs dumb components: es un patrón para dividir responsabilidades
+
+  //dumb component: Su responsabilidad es manejar la interacción con el formulario y comunicar esas acciones al
+  //smart component
+
+  //El componente queda mucho mas desacoplado
 
   form: FormGroup;
   progressBarValue: number | null = null;
-  categoryId: string;
+
+  //dumb component: Se maneja a través de inputs y outputs
+  @Input() category: Category;
+  @Output() create = new EventEmitter();
+  @Output() update = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
-    private categoriesService: CategoriesService,
-    private router: Router,
     private storage: AngularFireStorage,
-    private route: ActivatedRoute) {
+    //Los servicios no se pueden inyectar en el dumbComponent, en este caso es una excepción para hacer la validación asíncrona
+    private categoriesService: CategoriesService) {
     this.buildForm();
-
-  }
-
-  ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.categoryId = params.id;
-      if (this.categoryId)
-        this.getCategory();
-    })
   }
 
   private buildForm() {
@@ -54,31 +53,8 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     if (this.form.valid)
-      this.categoryId ? this.updateCategory() : this.createCategory()
+      this.category ? this.update.emit(this.form.value) : this.create.emit(this.form.value)
     else this.form.markAllAsTouched();
-  }
-
-  private createCategory() {
-    const data = this.form.value;
-    this.categoriesService.createCategory(data).subscribe(response => {
-      console.log('Categoría creada: ', response)
-      this.router.navigate(['./admin/categories'])
-    })
-  }
-
-  private updateCategory() {
-    const data = this.form.value;
-    this.categoriesService.updateCategory(this.categoryId, data).subscribe(response => {
-      console.log('Categoría creada: ', response)
-      this.router.navigate(['./admin/categories'])
-    })
-  }
-
-  private getCategory() {
-    this.categoriesService.getCategory(this.categoryId).subscribe(response => {
-      console.log(response)
-      this.form.patchValue(response)
-    })
   }
 
   uploadFile(event) {
