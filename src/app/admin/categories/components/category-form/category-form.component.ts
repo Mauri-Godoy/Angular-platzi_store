@@ -21,10 +21,18 @@ export class CategoryFormComponent {
   form: FormGroup;
   progressBarValue: number | null = null;
 
+  //Flag para solucionar que el input de categoría sea un setter
+  isNew: boolean = true;
+
   //dumb component: Se maneja a través de inputs y outputs
-  @Input() category: Category;
   @Output() create = new EventEmitter();
   @Output() update = new EventEmitter();
+  @Input() set category(data: Category) {  //Input como setter: para saber el momento exacto donde entra la información
+    if (data) {
+      this.isNew = false;
+      this.form.patchValue(data);
+    }
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,7 +61,7 @@ export class CategoryFormComponent {
 
   save() {
     if (this.form.valid)
-      this.category ? this.update.emit(this.form.value) : this.create.emit(this.form.value)
+      this.isNew ? this.create.emit(this.form.value) : this.update.emit(this.form.value)
     else this.form.markAllAsTouched();
   }
 
