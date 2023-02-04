@@ -53,13 +53,22 @@ export class CategoryFormComponent implements OnInit {
   }
 
   save() {
-    this.form.valid ? this.createCategory()
-      : this.form.markAllAsTouched();
+    if (this.form.valid)
+      this.categoryId ? this.updateCategory() : this.createCategory()
+    else this.form.markAllAsTouched();
   }
 
   private createCategory() {
     const data = this.form.value;
     this.categoriesService.createCategory(data).subscribe(response => {
+      console.log('Categoría creada: ', response)
+      this.router.navigate(['./admin/categories'])
+    })
+  }
+
+  private updateCategory() {
+    const data = this.form.value;
+    this.categoriesService.updateCategory(this.categoryId, data).subscribe(response => {
       console.log('Categoría creada: ', response)
       this.router.navigate(['./admin/categories'])
     })
