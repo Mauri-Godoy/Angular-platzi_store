@@ -39,7 +39,8 @@ export class ProductDetailComponent implements OnInit {
       name: 'nuevo desde angular',
       image: 'assets/images/banner-1.jpg',
       price: 3000,
-      description: 'nuevo producto'
+      description: 'nuevo producto',
+      category: { id: '', name: '', image: '' }
     };
     this.productsService.createProduct(newProduct)
       .subscribe(product => {
