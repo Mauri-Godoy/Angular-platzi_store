@@ -39,9 +39,19 @@
           </mat-form-field>
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>States</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let item of states" [value]="item">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </mat-card-content>
     <mat-card-actions>
-      <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button>
+      <button mat-raised-button type="submit">Guardar</button>
     </mat-card-actions>
   </mat-card>
 

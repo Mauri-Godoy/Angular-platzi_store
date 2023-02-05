@@ -17,6 +17,14 @@ export class ProductEditComponent implements OnInit {
   form: FormGroup;
   id: string;
   categories: Category[] = [];
+  states = [
+    { name: 'San Luis' },
+    { name: 'Cordoba' },
+    { name: 'Mendoza' },
+    { name: 'La Pampa' },
+    { name: 'San Juan' },
+  ]
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +41,10 @@ export class ProductEditComponent implements OnInit {
       this.id = params.id;
       this.productsService.getProduct(this.id)
         .subscribe(product => {
-          this.form.patchValue(product);
+          this.form.patchValue({
+            ...product,
+            state: this.states[2]
+          });
           this.categoryIdField.patchValue(product.category.id);
         });
     });
@@ -42,6 +53,9 @@ export class ProductEditComponent implements OnInit {
 
   saveProduct(event: Event) {
     event.preventDefault();
+
+    console.log(this.form.value)
+
     if (this.form.valid) {
       const product = this.form.value;
       this.productsService.updateProduct(this.id, product)
@@ -49,7 +63,7 @@ export class ProductEditComponent implements OnInit {
           console.log(newProduct);
           this.router.navigate(['./admin/products']);
         });
-    }
+    } else this.form.markAllAsTouched()
   }
 
   private buildForm() {
@@ -59,6 +73,7 @@ export class ProductEditComponent implements OnInit {
       price: ['', [Validators.required, MyValidators.isPriceValid]],
       image: [''],
       description: ['', [Validators.required]],
+      state: ['']
     });
   }
 

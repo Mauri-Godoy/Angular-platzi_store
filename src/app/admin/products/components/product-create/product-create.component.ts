@@ -22,6 +22,10 @@ export class ProductCreateComponent implements OnInit {
   form: FormGroup;
   image$: Observable<any>;
   categories: Category[] = [];
+  states = [
+    { name: 'San Luis' },
+    { name: 'Cordoba' },
+  ]
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,6 +43,9 @@ export class ProductCreateComponent implements OnInit {
 
   saveProduct(event: Event) {
     event.preventDefault();
+
+    console.log(this.form.value)
+
     if (this.form.valid) {
       const product = this.form.value;
       this.productsService.createProduct(product)
@@ -46,7 +53,7 @@ export class ProductCreateComponent implements OnInit {
           console.log(newProduct);
           this.router.navigate(['./admin/products']);
         });
-    }
+    } else this.form.markAllAsTouched()
   }
 
   uploadFile(event) {
@@ -75,6 +82,7 @@ export class ProductCreateComponent implements OnInit {
       image: ['', Validators.required],
       category_id: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(10)]],
+      state: ['']
     });
   }
 
