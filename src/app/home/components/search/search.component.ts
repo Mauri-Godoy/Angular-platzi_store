@@ -23,13 +23,21 @@ export class SearchComponent implements OnInit {
 
   private getData(query: string) {
     const API = "fRqE7Z6ywo5g4G7H6cM7nhFsyAka2hJw";
-    this.http.get(`https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${API}&limit=12`)
-      .pipe(
-        map((response: any) => response.data.map(item => item.images.downsized))
-      )
-      .subscribe(data => {
-        console.log(data)
-        this.results = data;
-      })
+    if (query) {
+      this.http.get(`https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${API}&limit=12`)
+        .pipe(
+          map((response: any) => response.data.map(item => item.images.downsized))
+        )
+        .subscribe(data => {
+          console.log(data)
+          if (data.length <= 0) {
+            alert(`No se han encontrado resultados para la búsqueda ${query}`)
+            this.searchField.patchValue("")
+          }
+          else
+            this.results = data;
+
+        })
+    }
   }
 }
