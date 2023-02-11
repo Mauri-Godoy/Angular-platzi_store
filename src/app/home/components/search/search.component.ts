@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -11,11 +11,14 @@ import { map } from 'rxjs/operators';
 export class SearchComponent implements OnInit {
 
   searchField: FormControl = new FormControl("");
-  result: any[] = [];
+  results: any[] = [];
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.searchField.valueChanges.subscribe(value => this.getData(value));
+    this.searchField.valueChanges
+      // debounceTime: tiempo requerido de inactividad para suscribirse los cambios.
+      // Normalmente se setea en 300 milisegundos
+      .pipe(debounceTime(300)).subscribe(value => this.getData(value));
   }
 
   private getData(query: string) {
@@ -26,6 +29,7 @@ export class SearchComponent implements OnInit {
       )
       .subscribe(data => {
         console.log(data)
+        this.results = data;
       })
   }
 }
